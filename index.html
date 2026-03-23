@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I.A. — Historiador, Consultor, Escritor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #ffffff;
+      --black:   #111111;
+      --header:  #4a5568;
+      --sub:     #718096;
+      --rule:    #e2e8f0;
+      --yellow:  #f5c842;
+      --yellow2: #fdf3c0;
+      --body:    #2d3748;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Libre Baskerville', serif;
+      font-size: 16px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeDown 0.7s 0.1s forwards;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo::after {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+      margin-bottom: 2px;
+    }
+
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--sub);
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--black); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 4.5rem;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem;
+      border-right: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 0.9s 0.4s forwards;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sub);
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 2px;
+      background: var(--yellow);
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      color: var(--black);
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--header);
+    }
+
+    .hero-roles {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .hero-roles span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sub);
+    }
+
+    .hero-roles span:first-child { color: var(--black); }
+    .hero-roles span:first-child::before { content: '▸ '; color: var(--yellow); }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.6s forwards;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--body);
+      max-width: 44ch;
+    }
+
+    .hero-bio strong { color: var(--black); font-weight: 700; }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--black);
+      border-bottom: 2px solid var(--yellow);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .hero-cta:hover { color: var(--header); }
+
+    /* ── SECCIONES ── */
+    section { border-top: 1px solid var(--rule); }
+
+    .section-inner {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+    }
+
+    .section-label {
+      padding: 3.5rem 2.5rem;
+      border-right: 1px solid var(--rule);
+    }
+
+    .section-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--yellow);
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-label h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem;
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--header);
+    }
+
+    .section-label h2 em {
+      font-style: italic;
+      color: var(--sub);
+    }
+
+    .section-content { padding: 3.5rem 3rem; }
+
+    /* ── ARTÍCULOS ── */
+    .articles-list { display: flex; flex-direction: column; }
+
+    .article-item {
+      display: grid;
+      grid-template-columns: 70px 1fr auto;
+      align-items: start;
+      gap: 1.8rem;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .article-item:last-child { border-bottom: none; }
+    .article-item:hover .article-title { color: var(--header); }
+
+    .article-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      color: var(--sub);
+      line-height: 1.6;
+      padding-top: 0.3rem;
+    }
+
+    .article-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--black);
+      transition: color 0.2s;
+    }
+
+    .article-title em { font-style: italic; }
+
+    .article-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--yellow2);
+      border: 1px solid var(--yellow);
+      padding: 0.25rem 0.55rem;
+      white-space: nowrap;
+      margin-top: 0.25rem;
+    }
+
+    /* ── GALERÍA ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--rule);
+    }
+
+    .gallery-item {
+      background: var(--white);
+      aspect-ratio: 1;
+      overflow: hidden;
+    }
+
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #f8fafc;
+      transition: background 0.2s;
+    }
+
+    .gallery-placeholder:hover { background: #edf2f7; }
+
+    .gallery-placeholder span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #a0aec0;
+    }
+
+    .gallery-placeholder::before {
+      content: '';
+      display: block;
+      width: 20px; height: 2px;
+      background: var(--yellow);
+    }
+
+    /* ── REDES ── */
+    .social-list { display: flex; flex-direction: column; }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      transition: padding-left 0.2s;
+    }
+
+    .social-item:last-child { border-bottom: none; }
+    .social-item:hover { padding-left: 0.4rem; }
+    .social-item:hover .social-name { color: var(--header); }
+
+    .social-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--black);
+      transition: color 0.2s;
+    }
+
+    .social-handle {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      color: var(--sub);
+    }
+
+    .social-arrow {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--rule);
+      font-size: 0.8rem;
+      color: var(--sub);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .social-item:hover .social-arrow {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      color: var(--black);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+    }
+
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--header);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      color: var(--sub);
+    }
+
+    /* ── ANIMACIONES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header { padding: 1rem 1.5rem; }
+      nav { gap: 1.2rem; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 6rem 1.5rem 2.5rem; border-right: none; border-bottom: 1px solid var(--rule); }
+      .hero-right { padding: 2.5rem 1.5rem 4rem; }
+
+      .section-inner { grid-template-columns: 1fr; }
+      .section-label { padding: 2.5rem 1.5rem 1rem; border-right: none; border-bottom: 1px solid var(--rule); }
+      .section-content { padding: 2rem 1.5rem; }
+
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .article-item { grid-template-columns: 55px 1fr; }
+      .article-tag { display: none; }
+
+      footer { flex-direction: column; gap: 0.6rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="#">I. A.</a>
+    <nav>
+      <a href="#escritos">Escritos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Historiador · Consultor · Escritor</p>
+      <h1 class="hero-name">Nombre<br><em>Apellido</em></h1>
+      <div class="hero-roles">
+        <span>Historia contemporánea</span>
+        <span>Consultoría estratégica</span>
+        <span>Ensayo y artículos</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <p class="hero-bio">
+        Trabajo en la intersección del <strong>pensamiento histórico</strong>,
+        la <strong>consultoría</strong> y la <strong>escritura</strong>.
+        Aquí reúno mis artículos, reflexiones y proyectos.
+      </p>
+      <a class="hero-cta" href="#escritos">Ver escritos recientes ↓</a>
+    </div>
+  </div>
+
+  <section id="escritos">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-num">01</span>
+        <h2>Escritos<br><em>recientes</em></h2>
+      </div>
+      <div class="section-content reveal">
+        <div class="articles-list">
+          <a class="article-item" href="#">
+            <span class="article-date">Mar<br>2025</span>
+            <span class="article-title">El peso del archivo: fuentes, silencios y la historia que no se escribe</span>
+            <span class="article-tag">Ensayo</span>
+          </a>
+          <a class="article-item" href="#">
+            <span class="article-date">Feb<br>2025</span>
+            <span class="article-title">Consultoría y <em>larga duración</em>: lo que Braudel le enseña al estratega</span>
+            <span class="article-tag">Análisis</span>
+          </a>
+          <a class="article-item" href="#">
+            <span class="article-date">Ene<br>2025</span>
+            <span class="article-title">Ciudades, memoria y urbanismo: tres libros para leer este año</span>
+            <span class="article-tag">Reseña</span>
+          </a>
+          <a class="article-item" href="#">
+            <span class="article-date">Dic<br>2024</span>
+            <span class="article-title">Notas sobre el fin de año: tiempo histórico y tiempo vivido</span>
+            <span class="article-tag">Personal</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-num">02</span>
+        <h2>Imágenes<br><em>& archivo</em></h2>
+      </div>
+      <div class="section-content reveal">
+        <div class="gallery-grid">
+          <div class="gallery-item"><div class="gallery-placeholder"><span>Imagen 01</span></div></div>
+          <div class="gallery-item"><div class="gallery-placeholder"><span>Imagen 02</span></div></div>
+          <div class="gallery-item"><div class="gallery-placeholder"><span>Imagen 03</span></div></div>
+          <div class="gallery-item"><div class="gallery-placeholder"><span>Imagen 04</span></div></div>
+          <div class="gallery-item"><div class="gallery-placeholder"><span>Imagen 05</span></div></div>
+          <div class="gallery-item"><div class="gallery-placeholder"><span>Imagen 06</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-num">03</span>
+        <h2>Redes<br><em>& contacto</em></h2>
+      </div>
+      <div class="section-content reveal">
+        <div class="social-list">
+          <a class="social-item" href="#" target="_blank">
+            <span class="social-name">Twitter / X</span>
+            <span class="social-handle">@usuario</span>
+            <span class="social-arrow">↗</span>
+          </a>
+          <a class="social-item" href="#" target="_blank">
+            <span class="social-name">LinkedIn</span>
+            <span class="social-handle">linkedin.com/in/usuario</span>
+            <span class="social-arrow">↗</span>
+          </a>
+          <a class="social-item" href="#" target="_blank">
+            <span class="social-name">Instagram</span>
+            <span class="social-handle">@usuario</span>
+            <span class="social-arrow">↗</span>
+          </a>
+          <a class="social-item" href="mailto:correo@dominio.com">
+            <span class="social-name">Correo</span>
+            <span class="social-handle">correo@dominio.com</span>
+            <span class="social-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-name">Nombre Apellido</span>
+    <span class="footer-copy">© 2025 — Todos los derechos reservados</span>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
