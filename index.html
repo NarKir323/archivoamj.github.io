@@ -267,7 +267,51 @@
       white-space: nowrap;
       margin-top: 0.25rem;
     }
-
+/* ── FLIP CARD ── */
+    .flip-card {
+      aspect-ratio: 1;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .flip-inner {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease;
+    }
+    .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-front, .flip-back {
+      position: absolute;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-front img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .flip-back {
+      background: var(--black);
+      transform: rotateY(180deg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+    }
+    .flip-back p {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: #f0ece4;
+      text-align: center;
+    }
+    .flip-back em { font-style: italic; color: var(--yellow); }
+    .flip-hint {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sub);
+      margin-top: 0.8rem;
+    }
     /* ── GALERÍA ── */
     .gallery-grid {
       display: grid;
@@ -478,13 +522,69 @@
         <h2>Imágenes<br><em>& archivo</em></h2>
       </div>
       <div class="section-content reveal">
-        <div class="gallery-grid">
-          <div class="gallery-item"><img src="imagenes/imagen3.jfif" alt="foto 1" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="gallery-item"><img src="imagenes/imagen4.jfif" alt="foto 2" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="gallery-item"><img src="imagenes/imagen1.jfif" alt="foto 3" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="gallery-item"><img src="imagenes/imagen5.jfif" alt="foto 4" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="gallery-item"><img src="imagenes/imagen77.jfif" alt="foto 5" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="gallery-item"><img src="imagenes/angelusnovus1920.jpg" alt="foto 6" style="width:100%;height:100%;object-fit:cover;"></div>
+       <div class="gallery-grid">
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-inner">
+              <div class="flip-front"><img src="imagenes/imagen3.jfif" alt="Aarón Morales"></div>
+              <div class="flip-back">
+                <p>Aarón Morales — historiador, consultor y escritor. Desde Ciudad de México, en busca de lo que el tiempo deja atrás.</p>
+                <span class="flip-hint">toca para volver</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-inner">
+              <div class="flip-front"><img src="imagenes/imagen4.jfif" alt="La Historia MUNAL"></div>
+              <div class="flip-back">
+                <p>La Historia, de Juan Cordero. Lleva un libro en la mano y a sus pies el <em>Passato</em> y <em>l'Avvenire</em> — el pasado y el porvenir. Museo Nacional de Arte, CDMX.</p>
+                <span class="flip-hint">toca para volver</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-inner">
+              <div class="flip-front"><img src="imagenes/imagen1.jfif" alt="Ahuehete Museo Kaluz"></div>
+              <div class="flip-back">
+                <p>Tronco de un ahuehete plantado en 1507. Sus anillos marcan 500 años de historia nacional. Hoy preservado en el Museo Kaluz, CDMX.</p>
+                <span class="flip-hint">toca para volver</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-inner">
+              <div class="flip-front"><img src="imagenes/imagen5.jfif" alt="Biblioteca Miguel Lerdo"></div>
+              <div class="flip-back">
+                <p>Biblioteca Miguel Lerdo de Tejada. Un lugar tranquilo y bello para leer, con libros que pocos conocen y menos frecuentan.</p>
+                <span class="flip-hint">toca para volver</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-inner">
+              <div class="flip-front"><img src="imagenes/imagen77.jfif" alt="Retrato Los Dinamos"></div>
+              <div class="flip-back">
+                <p>Retrato de una deidad prehispánica de la zona de Los Dinamos, en las faldas del Ajusco. El pasado que sobrevive en los márgenes de la ciudad.</p>
+                <span class="flip-hint">toca para volver</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-inner">
+              <div class="flip-front"><img src="imagenes/angelusnovus1920.jpg" alt="Angelus Novus"></div>
+              <div class="flip-back">
+                <p><em>"El ángel quisiera detenerse, despertar a los muertos y recomponer lo despedazado. Pero una tormenta desciende del paraíso... Eso que llamamos progreso."</em></p>
+                <p style="margin-top:0.6rem;font-size:0.65rem;color:var(--yellow);">Walter Benjamin, Tesis IX</p>
+                <span class="flip-hint">toca para volver</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     </div>
