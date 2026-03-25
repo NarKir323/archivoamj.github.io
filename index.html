@@ -77,7 +77,34 @@
       transition: color 0.2s;
     }
     nav a:hover { color: var(--black); }
+/* ── QUOTE BAND ── */
+   .quote-band {
+      background: #111;
+      padding: 2rem 3rem;
+      padding-top: 6rem;
+      border-bottom: 1px solid #222;
+    }
+    .quote-band-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 300;
+      font-style: italic;
+      color: #f0ece4;
+      line-height: 1.5;
+      max-width: 80ch;
+    }
+    .quote-band-author {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #9b1b30;
+      display: block;
+      margin-top: 0.6rem;
+    }
 
+    /* ── HERO ── */
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
@@ -475,7 +502,10 @@
       <a href="#contacto">Contacto</a>
     </nav>
   </header>
-
+<div class="quote-band">
+    <p class="quote-band-text">"La historia no es un catálogo de hechos, sino un palacio con mil puertas donde siempre hay nuevos aposentos por descubrir."</p>
+    <span class="quote-band-author">— Fernand Braudel</span>
+  </div>
   <div class="hero">
     <div class="hero-left">
       <p class="hero-eyebrow">Historiador · Consultor · Escritor</p>
@@ -488,7 +518,6 @@
     </div>
     <div class="hero-right">
       <p class="hero-bio">
-        <span style="font-size:0.75rem;font-style:italic;color:var(--sub);display:block;margin-bottom:1rem;">"La historia no es un catálogo de hechos, sino un palacio con mil puertas donde siempre hay nuevos aposentos por descubrir." — Braudel</span>
         Me dedico al estudio del pasado como herramienta para entender el presente. La historia es una disciplina narrativa que une generaciones, crea identidades y produce consecuencias que moldean el presente. Como ciencia, es rigurosa y con una rica tradición académica, pero sin filosofía sus frutos son secos y poco satisfactorios. Este archivo es una habitación en el palacio de la historia; un lugar para pensar y descubrir lo que el tiempo ha guardado celosamente.
       </p>
       <a class="hero-cta" href="#escritos">Ver escritos recientes ↓</a>
