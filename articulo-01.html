@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lo que aprendí sobre la historia en una librería cualquiera — Archivo AMJ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #ffffff;
+      --black:   #111111;
+      --header:  #4a5568;
+      --sub:     #718096;
+      --rule:    #e2e8f0;
+      --yellow:  #f5c842;
+      --body:    #2d3748;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Libre Baskerville', serif;
+      font-size: 16px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeDown 0.7s 0.1s forwards;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo::after {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+      margin-bottom: 2px;
+    }
+
+    .back-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--sub);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--black); }
+
+    .article-hero {
+      padding: 7rem 3rem 3rem;
+      max-width: 780px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s forwards;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .article-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: #fdf3c0;
+      border: 1px solid var(--yellow);
+      padding: 0.25rem 0.55rem;
+    }
+
+    .article-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      color: var(--sub);
+    }
+
+    .article-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title em {
+      font-style: italic;
+      color: var(--header);
+    }
+
+    .article-subtitle {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--sub);
+      line-height: 1.7;
+      border-left: 2px solid var(--yellow);
+      padding-left: 1.2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .article-subtitle-author {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      color: var(--sub);
+      padding-left: 1.2rem;
+      margin-bottom: 2rem;
+      display: block;
+    }
+
+    .article-author {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--sub);
+    }
+
+    .article-author span { color: var(--black); font-weight: 700; }
+
+    .divider {
+      max-width: 780px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--rule);
+    }
+
+    .article-body {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 3rem 5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+
+    .article-body p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--body);
+      margin-bottom: 1.8rem;
+    }
+
+    .article-body p:first-child::first-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      line-height: 0.8;
+      float: left;
+      margin-right: 0.1em;
+      margin-top: 0.1em;
+      color: var(--black);
+    }
+
+    .article-body em { font-style: italic; }
+    .article-body strong { font-weight: 700; color: var(--black); }
+
+    .article-footer {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 3rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--black);
+      border-bottom: 2px solid var(--yellow);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--header); }
+
+    .site-footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+    }
+
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--header);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.14em;
+      color: var(--sub);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1rem 1.5rem; }
+      .article-hero { padding: 6rem 1.5rem 2rem; }
+      .article-body { padding: 2rem 1.5rem 4rem; }
+      .article-footer { padding: 1.5rem; flex-direction: column; gap: 0.8rem; }
+      .site-footer { flex-direction: column; gap: 0.6rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">A.M.J</a>
+    <a class="back-link" href="index.html#escritos">← Volver a escritos</a>
+  </header>
+
+  <div class="article-hero">
+    <div class="article-meta">
+      <span class="article-tag">Ensayo</span>
+      <span class="article-date">Marzo 2026</span>
+    </div>
+    <h1 class="article-title">Lo que aprendí sobre la historia<br><em>en una librería cualquiera</em></h1>
+    <p class="article-subtitle">"The best way to respect the dead is to help them speak to the living."</p>
+    <span class="article-subtitle-author">— David Harlan</span>
+    <p class="article-author">Por <span>Aarón Morales</span></p>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="article-body">
+
+    <p>¿Para qué sirve la historia? ¿Debe tener una utilidad? Si no la tuviera… ¿nos contentaríamos con una disciplina que no puede explicar y razonar su existencia?</p>
+
+    <p>La última pregunta seguramente se responde con un rotundo NO. Por lo que es obligación de los historiadores el responder las dos primeras preguntas. Primordialmente, para resolverlas tenemos que definir ¿qué es la Historia? Ríos de tinta se han escrito intentando responder satisfactoriamente esta pregunta. Usualmente la respuesta más sencilla es la correcta. Para el filósofo de la historia, Robin G. Collingwood, es la disciplina del autoconocimiento humano: conocernos implica saber lo que hemos hecho; es decir, la única pista de lo que ha hecho el hombre es su historia. Por la claridad de sus ideas, Collingwood ha sido reverenciado incesantemente, y en este caso no se le puede refutar con facilidad.</p>
+
+    <p>Otro gran académico que se ha dedicado a ponderar sobre la acción humana a lo largo del tiempo es el historiador mexicano Enrique Florescano. El difunto académico se preocupó profundamente en divulgar las cuestiones importantes como lo son el valor, sentido y significado de la disciplina histórica. Si le preguntáramos con una ouija, nos diría que estudiar la historia es indagar sobre el significado de la vida individual y colectiva de los seres humanos en el transcurso del tiempo; en este sentido, es la mejor guía para entender la existencia humana porque su arte se remonta a los orígenes remotos de la civilización.</p>
+
+    <p>Lo escrito anteriormente lo aprehendí de su propia pluma en mis primeros semestres de la licenciatura, su libro <em>La función social de la Historia</em> me esperaba pacientemente en una librería cualquiera en la Ciudad de México y, desde que lo adquirí, ha influenciado extensamente mi relación con la disciplina. Es un libro corto, pero con una profundidad inigualable porque abrevia magistralmente cuestiones ineludibles del conocimiento histórico. En realidad, son cosas muy básicas, pero si no las conocemos, no podemos dilucidar nada acerca del pasado.</p>
+
+    <p>Florescano identificó varios componentes de la función social de la Historia. El primero y más antiguo es instintivo: la creación de una identidad colectiva. Mediante los relatos históricos se crean identidades colectivas, esta ha sido su función primaria porque favorece la cohesión en el interior del grupo y refuerza las actitudes de defensa y lucha contra los externos (el "otro").</p>
+
+    <p>Como consecuencia, el historiador es el encargado de contar la memoria temporal de la tribu. Esta memoria histórica es la unión de los temores y peligros del pasado y presente. La memoria crea un sentido porque une las experiencias pasadas con las expectativas ante el futuro en una representación coherente y comprensiva del pasar del tiempo. Es decir, se construye un sentimiento de familiaridad y parentesco entre individuos y generaciones que no se conocen necesariamente, pero se identifican como uno de ellos (el "nosotros").</p>
+
+    <p>Con lo anteriormente escrito resulta evidente que otra función de la Historia es registrar el cambio individual y de la sociedad a lo largo del tiempo. Su objeto de estudio es el cambio de la vida social y como producto estructura las experiencias personales en un relato comunitario. El tiempo es dividido por interminables fechas en hechos, periodos, procesos, épocas, ciclos y divisiones aparentemente arbitrarias. En realidad, cada periodización corresponde a concepciones específicas de la temporalidad; han existido muchas y muy variadas, cada una con sus particularidades y con lecciones para el estudio de la temporalidad.</p>
+
+    <p>En este sentido, cada hecho se debe analizar conforme a sus valores temporales y espaciales. "El pasado en sus propios términos" sin juzgarlos con nuestro conocimiento contemporáneo. Esa buena práctica es parte de lo que autentifica al criterio de los historiadores. Y más importante aún: las experiencias históricas significan los hechos en sí mismos, los valorizan como una experiencia única, duradera e irrepetible en el desarrollo humano. La historia captura lo irrepetible y demuestra que las creaciones humanas no son definitivas ni eternas, en cambio: son dinámicas, imparables y mutables.</p>
+
+    <p>En conclusión, todo lo anterior nos lleva a una pregunta inevitable: si la historia registra el cambio y captura lo irrepetible… ¿cómo ha concebido ella misma el tiempo a lo largo de los siglos? La respuesta a esa pregunta es, en sí misma, una historia.</p>
+
+  </div>
+
+  <div class="article-footer">
+    <a class="back-btn" href="index.html#escritos">← Volver a escritos</a>
+    <span class="article-date">Archivo AMJ · Marzo 2026</span>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer-name">Archivo AMJ</span>
+    <span class="footer-copy">© 2026 — Todos los derechos reservados</span>
+  </footer>
+
+</body>
+</html>
