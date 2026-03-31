@@ -7,493 +7,120 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --white:   #ffffff;
-      --black:   #111111;
-      --header:  #4a5568;
-      --sub:     #718096;
-      --rule:    #e2e8f0;
-      --yellow:  #f5c842;
-      --yellow2: #fdf3c0;
-      --body:    #2d3748;
+      --white: #ffffff; --black: #111111; --header: #4a5568; --sub: #718096;
+      --rule: #e2e8f0; --yellow: #f5c842; --yellow2: #fdf3c0; --body: #2d3748;
     }
-
     html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: 'Libre Baskerville', serif; font-size: 16px; line-height: 1.8; overflow-x: hidden; }
 
-    body {
-      background: var(--white);
-      color: var(--black);
-      font-family: 'Libre Baskerville', serif;
-      font-size: 16px;
-      line-height: 1.8;
-      overflow-x: hidden;
-    }
-
-    /* ── HEADER ── */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 3rem;
-      background: rgba(255,255,255,0.97);
-      border-bottom: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeDown 0.7s 0.1s forwards;
-    }
-
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-decoration: none;
-      color: var(--black);
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .logo::after {
-      content: '';
-      display: inline-block;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--yellow);
-      margin-bottom: 2px;
-    }
-
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--rule); opacity: 0; animation: fadeDown 0.7s 0.1s forwards; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; letter-spacing: 0.12em; text-decoration: none; color: var(--black); display: flex; align-items: center; gap: 0.6rem; }
+    .logo::after { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-bottom: 2px; }
     nav { display: flex; gap: 2rem; }
-    nav a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--sub);
-      transition: color 0.2s;
-    }
+    nav a { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--sub); transition: color 0.2s; }
     nav a:hover { color: var(--black); }
-/* ── QUOTE BAND ── */
-   .quote-band {
-      background: #111;
-      padding: 2rem 3rem;
-      padding-top: 6rem;
-      border-bottom: 1px solid #222;
-    }
-.quote-band-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.3rem, 2.5vw, 2rem);
-      font-weight: 300;
-      font-style: italic;
-      color: #f0ece4;
-      line-height: 1.5;
-      max-width: 80ch;
-      text-align: center;
-      margin: 0 auto;
-    }
-    .quote-band-author {
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(0.7rem, 1.2vw, 0.9rem);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: #9b1b30;
-      display: block;
-      margin-top: 0.6rem;
-      text-align: right;
-      max-width: 62ch;
-      margin-left: auto;
-      margin-right: auto;
-    }
 
-    /* ── HERO ── */
-    /* ── HERO ── */
-    .hero {
-      min-height: 60vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 0;
-    }
+    .quote-band { background: #111; padding: 2rem 3rem; padding-top: 6rem; border-bottom: 1px solid #222; }
+    .quote-band-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.5vw, 2rem); font-weight: 300; font-style: italic; color: #f0ece4; line-height: 1.5; max-width: 80ch; text-align: center; margin: 0 auto; }
+    .quote-band-author { font-family: 'Space Mono', monospace; font-size: clamp(0.7rem, 1.2vw, 0.9rem); letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: #9b1b30; display: block; margin-top: 0.6rem; text-align: right; max-width: 62ch; margin-left: auto; margin-right: auto; }
 
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 5rem 3rem;
-      border-right: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeUp 0.9s 0.4s forwards;
-    }
-
-    .hero-eyebrow {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--sub);
-      margin-bottom: 1.8rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: inline-block;
-      width: 28px; height: 2px;
-      background: var(--yellow);
-    }
-
-    .hero-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      font-weight: 300;
-      line-height: 1.08;
-      color: var(--black);
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--header);
-    }
-
-    .hero-roles {
-      margin-top: 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .hero-roles span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--sub);
-    }
-
+    .hero { min-height: 60vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 0; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem; border-right: 1px solid var(--rule); opacity: 0; animation: fadeUp 0.9s 0.4s forwards; }
+    .hero-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sub); margin-bottom: 1.8rem; display: flex; align-items: center; gap: 0.7rem; }
+    .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--yellow); }
+    .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.08; color: var(--black); }
+    .hero-name em { font-style: italic; color: var(--header); }
+    .hero-roles { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.25rem; }
+    .hero-roles span { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sub); }
     .hero-roles span:first-child { color: var(--black); }
     .hero-roles span:first-child::before { content: '▸ '; color: var(--yellow); }
-
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 5rem 3rem;
-      opacity: 0;
-      animation: fadeUp 0.9s 0.6s forwards;
-    }
-
-    .hero-bio {
-      font-size: 1rem;
-      line-height: 1.9;
-      color: var(--body);
-      max-width: 44ch;
-    }
-
+    .hero-right { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem; opacity: 0; animation: fadeUp 0.9s 0.6s forwards; }
+    .hero-bio { font-size: 1rem; line-height: 1.9; color: var(--body); max-width: 44ch; }
     .hero-bio strong { color: var(--black); font-weight: 700; }
-
-    .hero-cta {
-      margin-top: 2.5rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--black);
-      border-bottom: 2px solid var(--yellow);
-      padding-bottom: 2px;
-      transition: color 0.2s;
-    }
+    .hero-cta { margin-top: 2.5rem; display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--black); border-bottom: 2px solid var(--yellow); padding-bottom: 2px; transition: color 0.2s; }
     .hero-cta:hover { color: var(--header); }
 
-    /* ── SECCIONES ── */
     section { border-top: 1px solid var(--rule); }
-
-    .section-inner {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-    }
-
-    .section-label {
-      padding: 3.5rem 2.5rem;
-      border-right: 1px solid var(--rule);
-    }
-
-    .section-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      color: var(--yellow);
-      display: block;
-      margin-bottom: 0.8rem;
-    }
-
-    .section-label h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.9rem;
-      font-weight: 300;
-      line-height: 1.15;
-      color: var(--header);
-    }
-
-    .section-label h2 em {
-      font-style: italic;
-      color: var(--sub);
-    }
-
+    .section-inner { display: grid; grid-template-columns: 220px 1fr; }
+    .section-label { padding: 3.5rem 2.5rem; border-right: 1px solid var(--rule); }
+    .section-num { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; color: var(--yellow); display: block; margin-bottom: 0.8rem; }
+    .section-label h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300; line-height: 1.15; color: var(--header); }
+    .section-label h2 em { font-style: italic; color: var(--sub); }
     .section-content { padding: 3.5rem 3rem; }
 
-    /* ── ARTÍCULOS ── */
+    /* ARTÍCULOS */
     .articles-list { display: flex; flex-direction: column; }
-
-    .article-item {
-      display: grid;
-      grid-template-columns: 70px 1fr auto;
-      align-items: start;
-      gap: 1.8rem;
-      padding: 1.8rem 0;
-      border-bottom: 1px solid var(--rule);
-      text-decoration: none;
-      color: inherit;
-    }
-
+    .article-item { display: grid; grid-template-columns: 70px 1fr auto; align-items: start; gap: 1.8rem; padding: 1.8rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; }
     .article-item:last-child { border-bottom: none; }
     .article-item:hover .article-title { color: var(--header); }
-
-    .article-date {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.08em;
-      color: var(--sub);
-      line-height: 1.6;
-      padding-top: 0.3rem;
-    }
-
-    .article-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      line-height: 1.35;
-      color: var(--black);
-      transition: color 0.2s;
-    }
-
+    .article-date { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; color: var(--sub); line-height: 1.6; padding-top: 0.3rem; }
+    .article-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; line-height: 1.35; color: var(--black); transition: color 0.2s; }
     .article-title em { font-style: italic; }
+    .article-tag { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--black); background: var(--yellow2); border: 1px solid var(--yellow); padding: 0.25rem 0.55rem; white-space: nowrap; margin-top: 0.25rem; }
 
-    .article-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--black);
-      background: var(--yellow2);
-      border: 1px solid var(--yellow);
-      padding: 0.25rem 0.55rem;
-      white-space: nowrap;
-      margin-top: 0.25rem;
-    }
-/* ── FLIP CARD ── */
-    .flip-card {
-      aspect-ratio: 1;
-      perspective: 1000px;
-      cursor: pointer;
-    }
-    .flip-inner {
-      width: 100%; height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.6s ease;
-    }
+    /* ARCHIVO MILITAR */
+    .batalla-item { display: grid; grid-template-columns: 70px 1fr auto; align-items: start; gap: 1.8rem; padding: 1.8rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; transition: padding-left 0.2s; }
+    .batalla-item:last-child { border-bottom: none; }
+    .batalla-item:hover .batalla-title { color: var(--header); }
+    .batalla-item.proximamente { opacity: 0.4; cursor: default; pointer-events: none; }
+    .batalla-num { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--sub); line-height: 1.6; padding-top: 0.3rem; font-weight: 700; }
+    .batalla-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; line-height: 1.35; color: var(--black); transition: color 0.2s; }
+    .batalla-title em { font-style: italic; }
+    .batalla-sub { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; color: var(--sub); margin-top: 0.3rem; display: block; }
+    .batalla-tag { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.25rem 0.55rem; white-space: nowrap; margin-top: 0.25rem; }
+    .batalla-tag.activo { color: var(--black); background: var(--yellow2); border: 1px solid var(--yellow); }
+    .batalla-tag.pronto { color: var(--sub); background: #f8fafc; border: 1px solid var(--rule); }
+
+    /* FLIP CARDS */
+    .flip-card { aspect-ratio: 1; perspective: 1000px; cursor: pointer; }
+    .flip-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s ease; }
     .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
-    .flip-front, .flip-back {
-      position: absolute;
-      width: 100%; height: 100%;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
+    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
     .flip-front img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .flip-back {
-      background: var(--black);
-      transform: rotateY(180deg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.2rem;
-    }
-    .flip-back p {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 0.78rem;
-      line-height: 1.6;
-      color: #f0ece4;
-      text-align: center;
-    }
+    .flip-back { background: var(--black); transform: rotateY(180deg); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.2rem; }
+    .flip-back p { font-family: 'Libre Baskerville', serif; font-size: 0.78rem; line-height: 1.6; color: #f0ece4; text-align: center; }
     .flip-back em { font-style: italic; color: var(--yellow); }
-    .flip-hint {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.5rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--sub);
-      margin-top: 0.8rem;
-    }
-    /* ── GALERÍA ── */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--rule);
-    }
+    .flip-hint { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sub); margin-top: 0.8rem; }
 
-    .gallery-item {
-      background: var(--white);
-      aspect-ratio: 1;
-      overflow: hidden;
-    }
+    /* GALERÍA */
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--rule); }
+    .gallery-item { background: var(--white); aspect-ratio: 1; overflow: hidden; }
 
-    .gallery-placeholder {
-      width: 100%; height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: #f8fafc;
-      transition: background 0.2s;
-    }
-
-    .gallery-placeholder:hover { background: #edf2f7; }
-
-    .gallery-placeholder span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #a0aec0;
-    }
-
-    .gallery-placeholder::before {
-      content: '';
-      display: block;
-      width: 20px; height: 2px;
-      background: var(--yellow);
-    }
-
-    /* ── REDES ── */
+    /* REDES */
     .social-list { display: flex; flex-direction: column; }
-
-    .social-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.3rem 0;
-      border-bottom: 1px solid var(--rule);
-      text-decoration: none;
-      color: inherit;
-      transition: padding-left 0.2s;
-    }
-
+    .social-item { display: flex; align-items: center; justify-content: space-between; padding: 1.3rem 0; border-bottom: 1px solid var(--rule); text-decoration: none; color: inherit; transition: padding-left 0.2s; }
     .social-item:last-child { border-bottom: none; }
     .social-item:hover { padding-left: 0.4rem; }
     .social-item:hover .social-name { color: var(--header); }
+    .social-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--black); transition: color 0.2s; }
+    .social-handle { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--sub); }
+    .social-arrow { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--rule); font-size: 0.8rem; color: var(--sub); transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    .social-item:hover .social-arrow { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
 
-    .social-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: var(--black);
-      transition: color 0.2s;
-    }
+    footer { border-top: 1px solid var(--rule); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; }
+    .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; color: var(--header); letter-spacing: 0.06em; }
+    .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.14em; color: var(--sub); }
 
-    .social-handle {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
-      color: var(--sub);
-    }
-
-    .social-arrow {
-      width: 28px; height: 28px;
-      display: flex; align-items: center; justify-content: center;
-      border: 1px solid var(--rule);
-      font-size: 0.8rem;
-      color: var(--sub);
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .social-item:hover .social-arrow {
-      background: var(--yellow);
-      border-color: var(--yellow);
-      color: var(--black);
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--rule);
-      padding: 2rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #f8fafc;
-    }
-
-    .footer-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--header);
-      letter-spacing: 0.06em;
-    }
-
-    .footer-copy {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.14em;
-      color: var(--sub);
-    }
-
-    /* ── ANIMACIONES ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       header { padding: 1rem 1.5rem; }
       nav { gap: 1.2rem; }
-
       .hero { grid-template-columns: 1fr; }
       .hero-left { padding: 6rem 1.5rem 2.5rem; border-right: none; border-bottom: 1px solid var(--rule); }
       .hero-right { padding: 2.5rem 1.5rem 4rem; }
-
       .section-inner { grid-template-columns: 1fr; }
       .section-label { padding: 2.5rem 1.5rem 1rem; border-right: none; border-bottom: 1px solid var(--rule); }
       .section-content { padding: 2rem 1.5rem; }
-
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       .article-item { grid-template-columns: 55px 1fr; }
       .article-tag { display: none; }
-
+      .batalla-item { grid-template-columns: 40px 1fr; }
+      .batalla-tag { display: none; }
       footer { flex-direction: column; gap: 0.6rem; text-align: center; padding: 1.5rem; }
     }
   </style>
@@ -504,14 +131,17 @@
     <a class="logo" href="#">A.M.J</a>
     <nav>
       <a href="#escritos">Escritos</a>
+      <a href="#archivo-militar">Archivo Militar</a>
       <a href="#galeria">Galería</a>
       <a href="#contacto">Contacto</a>
     </nav>
   </header>
-<div class="quote-band">
+
+  <div class="quote-band">
     <p class="quote-band-text">"La historia es un palacio cuya extensión nunca descubrimos enteramente y del cual no podemos divisar a la vez todos los ángulos, de suerte que no nos aburrimos nunca en este palacio, en el que estamos encerrados."</p>
     <span class="quote-band-author">— Paul Veyne, <em>Cómo se escribe la historia</em></span>
   </div>
+
   <div class="hero">
     <div class="hero-left">
       <p class="hero-eyebrow">Historiador · Consultor · Escritor</p>
@@ -524,12 +154,14 @@
     </div>
     <div class="hero-right">
       <p class="hero-bio">
+        <span style="font-size:0.75rem;font-style:italic;color:var(--sub);display:block;margin-bottom:1rem;">"La historia no es un catálogo de hechos, sino un palacio con mil puertas donde siempre hay nuevos aposentos por descubrir." — Braudel</span>
         Me dedico al estudio del pasado como herramienta para entender el presente. La historia es una disciplina narrativa que une generaciones, crea identidades y produce consecuencias que moldean el presente. Como ciencia, es rigurosa y con una rica tradición académica, pero sin filosofía sus frutos son secos y poco satisfactorios. Este archivo es una habitación en el palacio de la historia; un lugar para pensar y descubrir lo que el tiempo ha guardado celosamente.
       </p>
       <a class="hero-cta" href="#escritos">Ver escritos recientes ↓</a>
     </div>
   </div>
 
+  <!-- 01 ESCRITOS -->
   <section id="escritos">
     <div class="section-inner">
       <div class="section-label reveal">
@@ -537,97 +169,141 @@
         <h2>Escritos<br><em>recientes</em></h2>
       </div>
       <div class="section-content reveal">
-  <div class="articles-list">
- <a class="article-item" href="articulo-01.html">
-    <span class="article-date">Mar<br>2026</span>
-    <span class="article-title">Lo que aprendí sobre la historia en una librería cualquiera</span>
-    <span class="article-tag">Ensayo</span>
-  </a>
-</div>
+        <div class="articles-list">
+          <a class="article-item" href="articulo-01.html">
+            <span class="article-date">Mar<br>2026</span>
+            <span class="article-title">Lo que aprendí sobre la historia en una librería cualquiera</span>
+            <span class="article-tag">Ensayo</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="galeria">
+  <!-- 02 ARCHIVO MILITAR -->
+  <section id="archivo-militar">
     <div class="section-inner">
       <div class="section-label reveal">
         <span class="section-num">02</span>
+        <h2>Archivo<br><em>Militar</em></h2>
+      </div>
+      <div class="section-content reveal">
+        <div class="articles-list">
+
+          <a class="batalla-item" href="batalla-insurgencia.html">
+            <span class="batalla-num">I</span>
+            <span>
+              <span class="batalla-title">El inicio de la insurgencia</span>
+              <span class="batalla-sub">Dolores · Celaya · Alhóndiga de Granaditas · Sep–Oct 1810</span>
+            </span>
+            <span class="batalla-tag pronto">Pronto</span>
+          </a>
+
+          <a class="batalla-item" href="batalla-monte-cruces.html">
+            <span class="batalla-num">II</span>
+            <span>
+              <span class="batalla-title">Batalla del <em>Monte de las Cruces</em></span>
+              <span class="batalla-sub">30 de octubre de 1810 · Sierra de las Cruces</span>
+            </span>
+            <span class="batalla-tag activo">Disponible</span>
+          </a>
+
+          <a class="batalla-item proximamente" href="#">
+            <span class="batalla-num">III</span>
+            <span>
+              <span class="batalla-title">Batalla de <em>Aculco</em></span>
+              <span class="batalla-sub">7 de noviembre de 1810 · Primera derrota</span>
+            </span>
+            <span class="batalla-tag pronto">Pronto</span>
+          </a>
+
+          <a class="batalla-item proximamente" href="#">
+            <span class="batalla-num">IV</span>
+            <span>
+              <span class="batalla-title">Guadalajara y la <em>reorganización</em></span>
+              <span class="batalla-sub">Nov–Dic 1810 · Primer gobierno insurgente</span>
+            </span>
+            <span class="batalla-tag pronto">Pronto</span>
+          </a>
+
+          <a class="batalla-item proximamente" href="#">
+            <span class="batalla-num">V</span>
+            <span>
+              <span class="batalla-title">Batalla del <em>Puente de Calderón</em></span>
+              <span class="batalla-sub">17 de enero de 1811 · El fin del ejército insurgente</span>
+            </span>
+            <span class="batalla-tag pronto">Pronto</span>
+          </a>
+
+          <a class="batalla-item proximamente" href="#">
+            <span class="batalla-num">VI</span>
+            <span>
+              <span class="batalla-title">Acatita de Baján — <em>La captura</em></span>
+              <span class="batalla-sub">21 de marzo de 1811 · Fin de la campaña</span>
+            </span>
+            <span class="batalla-tag pronto">Pronto</span>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 GALERÍA -->
+  <section id="galeria">
+    <div class="section-inner">
+      <div class="section-label reveal">
+        <span class="section-num">03</span>
         <h2>Imágenes<br><em>& archivo</em></h2>
       </div>
       <div class="section-content reveal">
-       <div class="gallery-grid">
-
+        <div class="gallery-grid">
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-inner">
               <div class="flip-front"><img src="imagenes/imagen3.jfif" alt="Aarón Morales"></div>
-              <div class="flip-back">
-                <p>Aarón Morales — historiador, consultor y escritor. Desde Ciudad de México, en busca de lo que el tiempo deja atrás.</p>
-                <span class="flip-hint">toca para volver</span>
-              </div>
+              <div class="flip-back"><p>Aarón Morales — historiador, consultor y escritor. Desde Ciudad de México, en busca de lo que el tiempo deja atrás.</p><span class="flip-hint">toca para volver</span></div>
             </div>
           </div>
-
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-inner">
               <div class="flip-front"><img src="imagenes/imagen4.jfif" alt="La Historia MUNAL"></div>
-              <div class="flip-back">
-                <p>La Historia, de Juan Cordero. Lleva un libro en la mano y a sus pies el <em>Passato</em> y <em>l'Avvenire</em> — el pasado y el porvenir. Museo Nacional de Arte, CDMX.</p>
-                <span class="flip-hint">toca para volver</span>
-              </div>
+              <div class="flip-back"><p>La Historia, de Juan Cordero. Lleva un libro en la mano y a sus pies el <em>Passato</em> y <em>l'Avvenire</em> — el pasado y el porvenir. Museo Nacional de Arte, CDMX.</p><span class="flip-hint">toca para volver</span></div>
             </div>
           </div>
-
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-inner">
               <div class="flip-front"><img src="imagenes/imagen1.jfif" alt="Ahuehete Museo Kaluz"></div>
-              <div class="flip-back">
-                <p>Tronco de un ahuehete plantado en 1507. Sus anillos marcan 500 años de historia nacional. Hoy preservado en el Museo Kaluz, CDMX.</p>
-                <span class="flip-hint">toca para volver</span>
-              </div>
+              <div class="flip-back"><p>Tronco de un ahuehete plantado en 1507. Sus anillos marcan 500 años de historia nacional. Hoy preservado en el Museo Kaluz, CDMX.</p><span class="flip-hint">toca para volver</span></div>
             </div>
           </div>
-
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-inner">
               <div class="flip-front"><img src="imagenes/imagen5.jfif" alt="Biblioteca Miguel Lerdo"></div>
-              <div class="flip-back">
-                <p>Biblioteca Miguel Lerdo de Tejada. Un lugar tranquilo y bello para leer, con libros que pocos conocen y menos frecuentan.</p>
-                <span class="flip-hint">toca para volver</span>
-              </div>
+              <div class="flip-back"><p>Biblioteca Miguel Lerdo de Tejada. Un lugar tranquilo y bello para leer, con libros que pocos conocen y menos frecuentan.</p><span class="flip-hint">toca para volver</span></div>
             </div>
           </div>
-
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-inner">
               <div class="flip-front"><img src="imagenes/imagen77.jfif" alt="Retrato Los Dinamos"></div>
-              <div class="flip-back">
-                <p>Retrato de una deidad prehispánica de la zona de Los Dinamos, en las faldas del Ajusco. El pasado que sobrevive en los márgenes de la ciudad.</p>
-                <span class="flip-hint">toca para volver</span>
-              </div>
+              <div class="flip-back"><p>Retrato de una deidad prehispánica de la zona de Los Dinamos, en las faldas del Ajusco. El pasado que sobrevive en los márgenes de la ciudad.</p><span class="flip-hint">toca para volver</span></div>
             </div>
           </div>
-
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-inner">
               <div class="flip-front"><img src="imagenes/angelusnovus1920.jpg" alt="Angelus Novus"></div>
-              <div class="flip-back">
-                <p><em>"El ángel quisiera detenerse, despertar a los muertos y recomponer lo despedazado. Pero una tormenta desciende del paraíso... Eso que llamamos progreso."</em></p>
-                <p style="margin-top:0.6rem;font-size:0.65rem;color:var(--yellow);">Walter Benjamin, Tesis IX</p>
-                <span class="flip-hint">toca para volver</span>
-              </div>
+              <div class="flip-back"><p><em>"El ángel quisiera detenerse, despertar a los muertos y recomponer lo despedazado. Pero una tormenta desciende del paraíso... Eso que llamamos progreso."</em></p><p style="margin-top:0.6rem;font-size:0.65rem;color:var(--yellow);">Walter Benjamin, Tesis IX</p><span class="flip-hint">toca para volver</span></div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
   </section>
 
+  <!-- 04 CONTACTO -->
   <section id="contacto">
     <div class="section-inner">
       <div class="section-label reveal">
-        <span class="section-num">03</span>
+        <span class="section-num">04</span>
         <h2>Redes<br><em>& contacto</em></h2>
       </div>
       <div class="section-content reveal">
@@ -642,7 +318,7 @@
             <span class="social-handle">substack.com/@aaronmorales</span>
             <span class="social-arrow">↗</span>
           </a>
-         <a class="social-item" href="https://instagram.com/aaaaron.__" target="_blank">
+          <a class="social-item" href="https://instagram.com/aaaaron.__" target="_blank">
             <span class="social-name">Instagram</span>
             <span class="social-handle">@aaaaron.__</span>
             <span class="social-arrow">↗</span>
