@@ -25,3 +25,12 @@ git push origin main
 
 La acción **Validar sitio** repite automáticamente la revisión en cada `push`,
 en cada pull request y semanalmente.
+
+## Seguridad
+
+El sitio es estático y no procesa formularios, cuentas, pagos ni datos de
+visitantes. Cada página aplica una Content Security Policy restrictiva y la
+validación automática rechaza scripts en línea, enlaces externos inseguros y
+referencias locales rotas.
+
+Los reportes de seguridad deben seguir [SECURITY.md](SECURITY.md).

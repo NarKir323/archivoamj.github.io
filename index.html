@@ -3,6 +3,8 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; frame-src 'none'; media-src 'self'; worker-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="no-referrer">
  <title>A.M.J — Historiador, Consultor, Escritor</title>
  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet"/>
  <style>
@@ -127,37 +129,37 @@
  </div>
  <div class="section-content reveal">
  <div class="gallery-grid">
- <div class="flip-card" onclick="this.classList.toggle('flipped')">
+ <div class="flip-card">
  <div class="flip-inner">
  <div class="flip-front"><img src="imagenes/imagen3.jfif" alt="Aarón Morales"></div>
  <div class="flip-back"><p>Aarón Morales — historiador, consultor y escritor. Desde Ciudad de México, en busca de lo que el tiempo deja atrás.</p><span class="flip-hint">toca para volver</span></div>
  </div>
  </div>
- <div class="flip-card" onclick="this.classList.toggle('flipped')">
+ <div class="flip-card">
  <div class="flip-inner">
  <div class="flip-front"><img src="imagenes/imagen4.jfif" alt="La Historia MUNAL"></div>
  <div class="flip-back"><p>La Historia, de Juan Cordero. Lleva un libro en la mano y a sus pies el <em>Passato</em> y <em>l'Avvenire</em> — el pasado y el porvenir. Museo Nacional de Arte, CDMX.</p><span class="flip-hint">toca para volver</span></div>
  </div>
  </div>
- <div class="flip-card" onclick="this.classList.toggle('flipped')">
+ <div class="flip-card">
  <div class="flip-inner">
  <div class="flip-front"><img src="imagenes/imagen1.jfif" alt="Ahuehete Museo Kaluz"></div>
  <div class="flip-back"><p>Tronco de un ahuehete plantado en 1507. Sus anillos marcan 500 años de historia nacional. Hoy preservado en el Museo Kaluz, CDMX.</p><span class="flip-hint">toca para volver</span></div>
  </div>
  </div>
- <div class="flip-card" onclick="this.classList.toggle('flipped')">
+ <div class="flip-card">
  <div class="flip-inner">
  <div class="flip-front"><img src="imagenes/imagen5.jfif" alt="Biblioteca Miguel Lerdo"></div>
  <div class="flip-back"><p>Biblioteca Miguel Lerdo de Tejada. Un lugar tranquilo y bello para leer, con libros que pocos conocen y menos frecuentan.</p><span class="flip-hint">toca para volver</span></div>
  </div>
  </div>
- <div class="flip-card" onclick="this.classList.toggle('flipped')">
+ <div class="flip-card">
  <div class="flip-inner">
  <div class="flip-front"><img src="imagenes/imagen77.jfif" alt="Retrato Los Dinamos"></div>
  <div class="flip-back"><p>Retrato de una deidad prehispánica de la zona de Los Dinamos, en las faldas del Ajusco. El pasado que sobrevive en los márgenes de la ciudad.</p><span class="flip-hint">toca para volver</span></div>
  </div>
  </div>
- <div class="flip-card" onclick="this.classList.toggle('flipped')">
+ <div class="flip-card">
  <div class="flip-inner">
  <div class="flip-front"><img src="imagenes/angelusnovus1920.jpg" alt="Angelus Novus"></div>
  <div class="flip-back"><p><em>"El ángel quisiera detenerse, despertar a los muertos y recomponer lo despedazado. Pero una tormenta desciende del paraíso... Eso que llamamos progreso."</em></p><p style="margin-top:0.6rem;font-size:0.65rem;color:var(--yellow);">Walter Benjamin, Tesis IX</p><span class="flip-hint">toca para volver</span></div>
@@ -177,17 +179,17 @@
  </div>
  <div class="section-content reveal">
  <div class="social-list">
- <a class="social-item" href="https://twitter.com/Morales__Aaron" target="_blank">
+ <a class="social-item" href="https://twitter.com/Morales__Aaron" target="_blank" rel="noopener noreferrer">
  <span class="social-name">Twitter / X</span>
  <span class="social-handle">@Morales__Aaron</span>
  <span class="social-arrow">↗</span>
  </a>
- <a class="social-item" href="https://substack.com/@aaronmorales?utm_campaign=profile&utm_medium=profile-page" target="_blank">
+ <a class="social-item" href="https://substack.com/@aaronmorales?utm_campaign=profile&utm_medium=profile-page" target="_blank" rel="noopener noreferrer">
  <span class="social-name">Substack</span>
  <span class="social-handle">substack.com/@aaronmorales</span>
  <span class="social-arrow">↗</span>
  </a>
- <a class="social-item" href="https://instagram.com/aaaaron.__" target="_blank">
+ <a class="social-item" href="https://instagram.com/aaaaron.__" target="_blank" rel="noopener noreferrer">
  <span class="social-name">Instagram</span>
  <span class="social-handle">@aaaaron.__</span>
  <span class="social-arrow">↗</span>
@@ -207,18 +209,6 @@
  <span class="footer-copy">© 2026 — Todos los derechos reservados</span>
  </footer>
 
- <script>
- const reveals = document.querySelectorAll('.reveal');
- const observer = new IntersectionObserver((entries) => {
- entries.forEach((entry, i) => {
- if (entry.isIntersecting) {
- setTimeout(() => entry.target.classList.add('visible'), i * 100);
- observer.unobserve(entry.target);
- }
- });
- }, { threshold: 0.08 });
- reveals.forEach(el => observer.observe(el));
- </script>
-
+ <script src="site.js"></script>
 </body>
 </html>
