@@ -22,10 +22,12 @@ BROKEN_SPACING = tuple(REPLACEMENTS)
 REQUIRED_CSP = (
     "default-src 'self'",
     "object-src 'none'",
-    "script-src 'self'",
+    "script-src 'self' https://static.cloudflareinsights.com",
     "script-src-attr 'none'",
+    "connect-src https://cloudflareinsights.com",
     "form-action 'none'",
 )
+CLOUDFLARE_ANALYTICS_TOKEN = "c4eb19608ce64552af7944785ceebd83"
 
 
 def local_target(source: Path, value: str) -> Path | None:
@@ -83,6 +85,15 @@ def validate_file(path: Path) -> list[str]:
 
     if re.search(r"\son[a-z]+\s*=", text, re.IGNORECASE):
         problems.append(f"{path.relative_to(ROOT)}: contiene un manejador de evento en línea")
+
+    beacon = (
+        '<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+        f'data-cf-beacon=\'{{"token":"{CLOUDFLARE_ANALYTICS_TOKEN}"}}\'></script>'
+    )
+    if text.count(beacon) != 1:
+        problems.append(
+            f"{path.relative_to(ROOT)}: falta el rastreador autorizado de Cloudflare"
+        )
 
     for tag in re.findall(r'<a\b[^>]*\btarget="_blank"[^>]*>', text, re.IGNORECASE):
         if not re.search(r'\brel="[^"]*\bnoopener\b[^"]*\bnoreferrer\b[^"]*"', tag):
