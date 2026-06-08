@@ -34,3 +34,9 @@ validación automática rechaza scripts en línea, enlaces externos inseguros y
 referencias locales rotas.
 
 Los reportes de seguridad deben seguir [SECURITY.md](SECURITY.md).
+
+## Analítica
+
+El sitio utiliza Cloudflare Web Analytics para consultar estadísticas agregadas
+sin cookies. El panel privado está en **Cloudflare Dashboard → Analytics &
+Logs → Web Analytics**.
