@@ -14,10 +14,18 @@ from clean_text_artifacts import REPLACEMENTS
 ROOT = Path(__file__).resolve().parents[1]
 HTML_FILES = sorted(ROOT.rglob("*.html"))
 ARTICLE_FILES = sorted((ROOT / "articulos").glob("*.html"))
+JS_FILES = sorted(ROOT.rglob("*.js"))
 
 IGNORED_SCHEMES = ("http:", "https:", "mailto:", "tel:", "javascript:")
 BROKEN_TEXT = ("\ufffd", "Ã", "Â")
 BROKEN_SPACING = tuple(REPLACEMENTS)
+REQUIRED_CSP = (
+    "default-src 'self'",
+    "object-src 'none'",
+    "script-src 'self'",
+    "script-src-attr 'none'",
+    "form-action 'none'",
+)
 
 
 def local_target(source: Path, value: str) -> Path | None:
@@ -56,6 +64,32 @@ def validate_file(path: Path) -> list[str]:
                 f"{path.relative_to(ROOT)}: {attribute} apunta a un archivo inexistente: {value}"
             )
 
+    csp_match = re.search(
+        r'<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)"',
+        text,
+        re.IGNORECASE,
+    )
+    if not csp_match:
+        problems.append(f"{path.relative_to(ROOT)}: falta Content Security Policy")
+    else:
+        for directive in REQUIRED_CSP:
+            if directive not in csp_match.group(1):
+                problems.append(
+                    f"{path.relative_to(ROOT)}: CSP no contiene {directive!r}"
+                )
+
+    if re.search(r"<script(?![^>]*\bsrc=)[^>]*>", text, re.IGNORECASE):
+        problems.append(f"{path.relative_to(ROOT)}: contiene JavaScript en línea")
+
+    if re.search(r"\son[a-z]+\s*=", text, re.IGNORECASE):
+        problems.append(f"{path.relative_to(ROOT)}: contiene un manejador de evento en línea")
+
+    for tag in re.findall(r'<a\b[^>]*\btarget="_blank"[^>]*>', text, re.IGNORECASE):
+        if not re.search(r'\brel="[^"]*\bnoopener\b[^"]*\bnoreferrer\b[^"]*"', tag):
+            problems.append(
+                f"{path.relative_to(ROOT)}: enlace target=_blank sin noopener noreferrer"
+            )
+
     if path in ARTICLE_FILES:
         if "<article" not in text or "<h1>" not in text:
             problems.append(f"{path.relative_to(ROOT)}: falta la estructura principal del artículo")
@@ -76,6 +110,15 @@ def main() -> int:
 
     for path in HTML_FILES:
         problems.extend(validate_file(path))
+
+    dangerous_javascript = ("innerHTML", "outerHTML", "insertAdjacentHTML", "eval(", "new Function")
+    for path in JS_FILES:
+        text = path.read_text(encoding="utf-8")
+        for marker in dangerous_javascript:
+            if marker in text:
+                problems.append(
+                    f"{path.relative_to(ROOT)}: contiene JavaScript peligroso ({marker!r})"
+                )
 
     if problems:
         print("Validación fallida:\n")

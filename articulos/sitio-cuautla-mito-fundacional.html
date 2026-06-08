@@ -3,6 +3,8 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; form-action 'none'; frame-src 'none'; media-src 'self'; worker-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="no-referrer">
  <title>El sitio de Cuautla y la construcción de un mito fundacional — Archivo AMJ</title>
  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
  <style>
@@ -99,12 +101,6 @@
  <span class="footer-name">Archivo AMJ</span>
  <span class="footer-copy">© 2026 — Todos los derechos reservados</span>
  </footer>
-
- <script>
- window.addEventListener('scroll', () => {
- const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
- document.getElementById('progress').style.width = pct + '%';
- });
- </script>
+ <script src="../site.js"></script>
 </body>
 </html>
