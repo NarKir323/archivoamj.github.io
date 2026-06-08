@@ -8,6 +8,8 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+from clean_text_artifacts import REPLACEMENTS
+
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML_FILES = sorted(ROOT.rglob("*.html"))
@@ -15,6 +17,7 @@ ARTICLE_FILES = sorted((ROOT / "articulos").glob("*.html"))
 
 IGNORED_SCHEMES = ("http:", "https:", "mailto:", "tel:", "javascript:")
 BROKEN_TEXT = ("\ufffd", "Ã", "Â")
+BROKEN_SPACING = tuple(REPLACEMENTS)
 
 
 def local_target(source: Path, value: str) -> Path | None:
@@ -38,6 +41,13 @@ def validate_file(path: Path) -> list[str]:
     for marker in BROKEN_TEXT:
         if marker in text:
             problems.append(f"{path.relative_to(ROOT)}: contiene texto dañado ({marker!r})")
+
+    for marker in BROKEN_SPACING:
+        pattern = rf"(?<!\w){re.escape(marker)}(?!\w)"
+        if path in ARTICLE_FILES and re.search(pattern, text):
+            problems.append(
+                f"{path.relative_to(ROOT)}: contiene una palabra cortada o pegada ({marker!r})"
+            )
 
     for attribute, value in re.findall(r'\b(href|src)="([^"]+)"', text):
         target = local_target(path, value)
