@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Mapa de la campaña de Hidalgo - Archivo AMJ</title>
+ <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+ <style>:root {
+ --black: #111;
+ --white: #fff;
+ --yellow: #f5c842;
+ --crimson: #9b1b30;
+ --paper: #f0ece4;
+ --line: rgba(255,255,255,0.08);
+ }
+ * { box-sizing: border-box; margin: 0; padding: 0; }
+ body {
+ font-family: 'Libre Baskerville', serif;
+ background: linear-gradient(180deg, #151515 0%, #111 40%, #0d0d0d 100%);
+ color: var(--white);
+ }
+ header {
+ position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+ display: flex; justify-content: space-between; align-items: center;
+ padding: 1.15rem 2rem;
+ background: linear-gradient(to bottom, rgba(0,0,0,0.92), rgba(0,0,0,0.28), transparent);
+ }.logo {
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 1.5rem; letter-spacing: 0.12em; text-decoration: none; color: var(--white);
+ display: flex; align-items: center; gap: 0.55rem;
+ }.logo::after {
+ content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); display: inline-block;
+ }.back-link {
+ font-family: 'Space Mono', monospace;
+ font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.7);
+ }.page { padding: 6rem 1rem 1.25rem; }.hero { text-align: center; margin-bottom: 1rem; }.hero-tag {
+ font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--crimson);
+ display: inline-block; margin-bottom: 0.7rem;
+ }.hero-title {
+ font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 6vw, 4.8rem); font-weight: 300; line-height: 1; color: var(--paper);
+ margin-bottom: 0.8rem;
+ }.hero-title em { color: var(--yellow); font-style: italic; }.hero-subtitle {
+ font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.48);
+ margin-bottom: 0.9rem;
+ }.hero-text {
+ max-width: 78ch; margin: 0 auto; color: rgba(240,236,228,0.72); line-height: 1.7;
+ }.map-panel,.index-panel {
+ border: 1px solid var(--line);
+ background: linear-gradient(180deg, rgba(19,19,19,0.94), rgba(12,12,12,0.98));
+ box-shadow: 0 20px 60px rgba(0,0,0,0.24);
+ }.map-panel { padding: 0.75rem; }.map-frame {
+ position: relative; width: 100%; height: calc(100vh - 160px); min-height: 620px; max-height: 980px;
+ border: 1px solid rgba(255,255,255,0.06); overflow: hidden; background: #0f0f0f;
+ }.map-frame img {
+ width: 100%; height: 100%; object-fit: contain; display: block; background: #efe4c8;
+ }.route-overlay {
+ position: absolute;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ pointer-events: none;
+ z-index: 2;
+ }.route-line {
+ fill: none;
+ stroke: rgba(27, 134, 69, 0.9);
+ stroke-width: 0.18;
+ stroke-linecap: round;
+ stroke-linejoin: round;
+ filter: drop-shadow(0 0 0.2px rgba(27, 134, 69, 0.06));
+ }.marker {
+ position: absolute; transform: translate(-50%, -100%); z-index: 5;
+ width: 30px; height: 30px; border-radius: 50%;
+ border: 2px solid rgba(255,255,255,0.7); background: rgba(155,27,48,0.94); color: var(--white);
+ font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-weight: 600;
+ display: flex; align-items: center; justify-content: center; cursor: pointer;
+ box-shadow: 0 6px 14px rgba(0,0,0,0.24), 0 0 0 2px var(--halo-ring, rgba(212,175,55,0.04)), 0 0 6px var(--halo-glow, rgba(212,175,55,0.1));
+ transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+ user-select: none;
+ touch-action: none;
+ animation: pinPulse 2.8s ease-in-out infinite;
+ }.marker::before {
+ content: '';
+ position: absolute;
+ left: 50%;
+ bottom: -16px;
+ width: 18px;
+ height: 8px;
+ transform: translateX(-50%);
+ border-radius: 50%;
+ background: rgba(0,0,0,0.18);
+ filter: blur(2px);
+ }.marker.pin-inner {
+ position: absolute;
+ inset: 3px;
+ border-radius: 50%;
+ background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01));
+ pointer-events: none;
+ }.marker::after {
+ content: '';
+ position: absolute;
+ left: 50%;
+ bottom: -9px;
+ width: 12px;
+ height: 12px;
+ background: inherit;
+ border-right: 2px solid rgba(255,255,255,0.7);
+ border-bottom: 2px solid rgba(255,255,255,0.7);
+ transform: translateX(-50%) rotate(45deg);
+ border-bottom-right-radius: 2px;
+ }.marker.upward {
+ transform: translate(-50%, 0%);
+ }.marker.upward:hover,.marker.upward.active,.marker.upward:focus-visible {
+ transform: translate(-50%, 0%) scale(1.08);
+ }.marker.upward::before {
+ top: -16px;
+ bottom: auto;
+ }.marker.upward::after {
+ top: -9px;
+ bottom: auto;
+ transform: translateX(-50%) rotate(225deg);
+ }.marker:hover,.marker.active,.marker:focus-visible {
+ transform: translate(-50%, -100%) scale(1.12); filter: brightness(1.1); outline: none;
+ box-shadow: 0 8px 18px rgba(0,0,0,0.28), 0 0 0 2px var(--halo-ring-active, rgba(245,200,66,0.07)), 0 0 10px var(--halo-glow-active, rgba(245,200,66,0.16));
+ }
+ @keyframes pinPulse {
+ 0%, 100% { box-shadow: 0 6px 14px rgba(0,0,0,0.24), 0 0 0 2px var(--halo-ring, rgba(212,175,55,0.04)), 0 0 5px var(--halo-glow, rgba(212,175,55,0.09)); }
+ 50% { box-shadow: 0 6px 14px rgba(0,0,0,0.24), 0 0 0 2px var(--halo-ring-active, rgba(212,175,55,0.06)), 0 0 8px var(--halo-glow-active, rgba(212,175,55,0.13)); }
+ }.marker-1 { --halo-ring: rgba(155,27,48,0.04); --halo-glow: rgba(155,27,48,0.11); --halo-ring-active: rgba(155,27,48,0.07); --halo-glow-active: rgba(155,27,48,0.18); }.marker-2 { --halo-ring: rgba(52,152,219,0.04); --halo-glow: rgba(52,152,219,0.11); --halo-ring-active: rgba(52,152,219,0.07); --halo-glow-active: rgba(52,152,219,0.18); }.marker-3 { --halo-ring: rgba(63,81,181,0.04); --halo-glow: rgba(63,81,181,0.11); --halo-ring-active: rgba(63,81,181,0.07); --halo-glow-active: rgba(63,81,181,0.18); }.marker-4 { --halo-ring: rgba(30,30,30,0.04); --halo-glow: rgba(30,30,30,0.14); --halo-ring-active: rgba(30,30,30,0.07); --halo-glow-active: rgba(30,30,30,0.2); }.marker-5 { --halo-ring: rgba(39,174,96,0.04); --halo-glow: rgba(39,174,96,0.11); --halo-ring-active: rgba(39,174,96,0.07); --halo-glow-active: rgba(39,174,96,0.18); }.marker-6 { --halo-ring: rgba(142,68,173,0.04); --halo-glow: rgba(142,68,173,0.11); --halo-ring-active: rgba(142,68,173,0.07); --halo-glow-active: rgba(142,68,173,0.18); }.map-card {
+ position: absolute; right: 1rem; bottom: 1rem; z-index: 10; width: min(320px, calc(100% - 2rem));
+ padding: 1rem 1.05rem; border: 1px solid rgba(255,255,255,0.08);
+ background: linear-gradient(180deg, rgba(12,12,12,0.9), rgba(8,8,8,0.94));
+ backdrop-filter: blur(8px); box-shadow: 0 16px 42px rgba(0,0,0,0.3);
+ }.info-kicker,.map-note,.index-summary,.info-meta,.info-link,.timeline span {
+ font-family: 'Space Mono', monospace;
+ }.info-kicker {
+ font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.7rem;
+ }.info-title {
+ font-family: 'Cormorant Garamond', serif; font-size: clamp(1.7rem, 2.6vw, 2.45rem); font-weight: 300; line-height: 1.05;
+ color: var(--paper); margin-bottom: 0.5rem;
+ }.info-title em { color: var(--yellow); font-style: italic; }.info-meta {
+ font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.75; color: rgba(255,255,255,0.48);
+ margin-bottom: 1rem;
+ }.info-body {
+ color: rgba(240,236,228,0.82); line-height: 1.85; margin-bottom: 1.2rem; min-height: 6rem;
+ }.info-link {
+ display: inline-block; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+ color: var(--white); border-bottom: 2px solid var(--yellow); padding-bottom: 2px;
+ }.map-note {
+ padding: 0.9rem 0.2rem 0.15rem; text-align: center; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+ color: rgba(255,255,255,0.34);
+ }.index-panel { margin-top: 0.9rem; overflow: hidden; }.index-summary {
+ list-style: none; cursor: pointer; padding: 1rem 1.15rem; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+ color: rgba(255,255,255,0.78);
+ }.timeline { padding: 0 1rem 1rem; display: grid; gap: 0.65rem; }.timeline button {
+ width: 100%; text-align: left; background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.76);
+ border: 1px solid rgba(255,255,255,0.05); padding: 0.8rem 0.9rem; cursor: pointer;
+ }.timeline button:hover,.timeline button.active {
+ background: rgba(245,200,66,0.08); border-color: rgba(245,200,66,0.26); color: var(--paper);
+ }.timeline strong {
+ display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.12rem; font-weight: 400;
+ }.timeline span {
+ font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.42);
+ }
+ footer {
+ padding: 1.8rem 2rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); background: #0d0d0d;
+ }.footer-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: rgba(255,255,255,0.56); }.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; color: rgba(255,255,255,0.3); }
+ @media (max-width: 768px) {
+ header,.page, footer { padding-left: 1rem; padding-right: 1rem; }.page { padding-top: 5.8rem; }.map-panel { padding: 0.45rem; }.map-frame { height: 58vh; min-height: 460px; }.marker { width: 22px; height: 22px; font-size: 0.68rem; }.marker::after { width: 9px; height: 9px; bottom: -7px; }.map-card { left: 0.6rem; right: 0.6rem; bottom: 0.6rem; width: auto; padding: 0.9rem; }
+ footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+ }
+ </style>
+</head>
+<body>
+ <header>
+ <a class="logo" href="index.html">A.M.J</a>
+ <a class="back-link" href="index.html#archivo-militar">← Archivo Militar</a>
+ </header>
+
+ <main class="page">
+ <section class="hero">
+ <span class="hero-tag">Mapa interactivo</span>
+ <h1 class="hero-title">La campaña de<br><em>Hidalgo</em></h1>
+ <p class="hero-subtitle">16 de septiembre de 1810 · 21 de marzo de 1811</p>
+ <p class="hero-text">Haz clic en cada número para desplegar el conflicto y entrar al episodio correspondiente.</p>
+ </section>
+
+ <section class="map-panel">
+ <div class="map-frame">
+ <img src="imagenes/Campaña_de_Hidalgo.6.png" alt="Mapa de la campaña de Hidalgo, 1810-1811" />
+ <svg class="route-overlay" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+ <polyline class="route-line" points="49.9,63.8 56.6,84.8 57.6,71.3 40.7,72.7 41.2,60.8 55.3,33.3"></polyline>
+ </svg>
+
+ <button class="marker marker-1 active" type="button" data-id="1" style="top: 63.8%; left: 49.9%;" aria-label="El inicio de la insurgencia"><span class="pin-inner"></span>I</button>
+ <button class="marker marker-2 upward" type="button" data-id="2" style="top: 84.8%; left: 56.6%;" aria-label="Monte de las Cruces"><span class="pin-inner"></span>II</button>
+ <button class="marker marker-3" type="button" data-id="3" style="top: 71.3%; left: 57.6%;" aria-label="Batalla de Aculco"><span class="pin-inner"></span>III</button>
+ <button class="marker marker-4 upward" type="button" data-id="4" style="top: 72.7%; left: 40.7%;" aria-label="Guadalajara y la reorganización"><span class="pin-inner"></span>IV</button>
+ <button class="marker marker-5" type="button" data-id="5" style="top: 60.8%; left: 41.2%;" aria-label="Puente de Calderón"><span class="pin-inner"></span>V</button>
+ <button class="marker marker-6" type="button" data-id="6" style="top: 33.3%; left: 55.3%;" aria-label="Acatita de Baján"><span class="pin-inner"></span>VI</button>
+
+ <aside class="map-card">
+ <div class="info-kicker">Conflicto</div>
+ <h2 class="info-title" id="info-title">El inicio de <em>la insurgencia</em></h2>
+ <div class="info-meta" id="info-meta">Septiembre-octubre de 1810 · Dolores, Celaya, Guanajuato, Valladolid y Toluca</div>
+ <div class="info-body" id="info-body">Del Grito de Dolores a la llegada al valle de México, la insurgencia pasó de estallido local a amenaza real contra el virreinato. Este primer tramo agrupa el ascenso vertiginoso de Hidalgo antes del Monte de las Cruces.</div>
+ <a class="info-link" id="info-link" href="batalla-insurgencia.html">Ir al episodio →</a>
+ </aside>
+ </div>
+ <p class="map-note">Los puntos funcionan como índice narrativo de la campaña y como acceso directo a cada episodio.</p>
+ </section>
+
+ <details class="index-panel">
+ <summary class="index-summary">Índice rápido de batallas</summary>
+ <div class="timeline">
+ <button type="button" class="active" data-id="1"><strong>I - El inicio de la insurgencia</strong><span>Dolores · Celaya · Guanajuato · Valladolid · Toluca</span></button>
+ <button type="button" data-id="2"><strong>II - Monte de las Cruces</strong><span>30 de octubre de 1810 · Sierra de las Cruces</span></button>
+ <button type="button" data-id="3"><strong>III - Aculco</strong><span>7 de noviembre de 1810 · Primera derrota</span></button>
+ <button type="button" data-id="4"><strong>IV - Guadalajara y la reorganización</strong><span>Noviembre-diciembre de 1810 · Primer gobierno insurgente</span></button>
+ <button type="button" data-id="5"><strong>V - Puente de Calderón</strong><span>17 de enero de 1811 · El derrumbe del ejército</span></button>
+ <button type="button" data-id="6"><strong>VI - Acatita de Baján</strong><span>21 de marzo de 1811 · Captura de Hidalgo</span></button>
+ </div>
+ </details>
+ </main>
+
+ <footer>
+ <span class="footer-name">Archivo AMJ</span>
+ <span class="footer-copy">© 2026 - Todos los derechos reservados</span>
+ </footer>
+
+ <script>
+ const entries = {
+ 1: { title: 'El inicio de <em>la insurgencia</em>', meta: 'Septiembre-octubre de 1810 · Dolores, Celaya, Guanajuato, Valladolid y Toluca', body: 'Del Grito de Dolores a la llegada al valle de México, la insurgencia pasó de estallido local a amenaza real contra el virreinato. Este primer tramo agrupa el ascenso vertiginoso de Hidalgo antes del Monte de las Cruces.', link: 'batalla-insurgencia.html' },
+ 2: { title: 'Monte de <em>las Cruces</em>', meta: '30 de octubre de 1810 · Sierra de las Cruces', body: 'La victoria insurgente más cercana a la capital. Monte de las Cruces muestra el punto más alto del impulso de Hidalgo y la gran decisión que no llegó: entrar o no a la Ciudad de México.', link: 'batalla-monte-cruces.html' },
+ 3: { title: 'Batalla de <em>Aculco</em>', meta: '7 de noviembre de 1810 · San Jerónimo Aculco', body: 'Primera derrota decisiva del ejército insurgente. La batalla reveló que el entusiasmo popular no bastaba frente a un mando profesional como el de Calleja y abrió una nueva etapa de repliegue y reorganización.', link: 'batalla-aculco.html' },
+ 4: { title: 'Guadalajara y la <em>reorganización</em>', meta: 'Noviembre-diciembre de 1810 · Occidente novohispano', body: 'En Guadalajara la insurgencia ensayó gobierno, decretos y legitimidad política. Fue el momento de máxima ambición institucional antes del gran desastre militar de enero de 1811.', link: 'batalla-guadalajara.html' },
+ 5: { title: 'Puente de <em>Calderón</em>', meta: '17 de enero de 1811 · Jalisco', body: 'La gran batalla final de la primera campaña. Tras horas de combate, la explosión en las municiones insurgentes convirtió una posibilidad de triunfo en derrota total y cerró la etapa militar de Hidalgo.', link: 'batalla-calderon.html' },
+ 6: { title: 'Acatita de <em>Baján</em>', meta: '21 de marzo de 1811 · Coahuila', body: 'La traición de Ignacio Elizondo y la captura de Hidalgo marcaron el fin de la primera fase insurgente. Ya no fue una gran batalla, sino la clausura amarga de una campaña entera.', link: 'batalla-acatitla.html' }
+ };
+
+ const title = document.getElementById('info-title');
+ const meta = document.getElementById('info-meta');
+ const body = document.getElementById('info-body');
+ const link = document.getElementById('info-link');
+ const markers = [...document.querySelectorAll('.marker')];
+ const timelineButtons = [...document.querySelectorAll('.timeline button')];
+
+ function setActive(id) {
+ const entry = entries[id];
+ if (!entry) return;
+ title.innerHTML = entry.title;
+ meta.textContent = entry.meta;
+ body.textContent = entry.body;
+ link.href = entry.link;
+ markers.forEach((marker) => marker.classList.toggle('active', marker.dataset.id === String(id)));
+ timelineButtons.forEach((button) => button.classList.toggle('active', button.dataset.id === String(id)));
+ }
+ markers.forEach((marker) => {
+ marker.addEventListener('click', () => setActive(marker.dataset.id));
+ });
+
+ timelineButtons.forEach((button) => button.addEventListener('click', () => setActive(button.dataset.id)));
+
+ </script>
+</body>
+</html>
