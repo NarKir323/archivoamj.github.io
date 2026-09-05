@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://cloudflareinsights.com; form-action 'none'; frame-src 'none'; media-src 'self'; worker-src 'none'; upgrade-insecure-requests">
+ <meta name="referrer" content="no-referrer">
+ <title>Archivo de escritos — Archivo AMJ</title>
+ <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+ <style>
+ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ :root { --white: #ffffff; --black: #111111; --header: #4a5568; --sub: #718096; --rule: #e2e8f0; --yellow: #f5c842; --yellow2: #fdf3c0; --body: #2d3748; }
+ html { scroll-behavior: smooth; }
+ body { background: var(--white); color: var(--black); font-family: 'Libre Baskerville', serif; font-size: 16px; line-height: 1.85; overflow-x: hidden; }
+ header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: rgba(255,255,255,0.97); border-bottom: 1px solid var(--rule); }
+ .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; letter-spacing: 0.12em; text-decoration: none; color: var(--black); display: flex; align-items: center; gap: 0.6rem; }
+ .logo::after { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-bottom: 2px; }
+ .back-link { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--sub); transition: color 0.2s; }
+ .back-link:hover { color: var(--black); }
+ .hero { max-width: 1040px; margin: 0 auto; padding: 7.5rem 3rem 3rem; }
+ .eyebrow { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sub); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem; }
+ .eyebrow::before { content: ''; display: inline-block; width: 28px; height: 2px; background: var(--yellow); }
+ h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 300; line-height: 1.05; margin-bottom: 1.4rem; }
+ h1 em { font-style: italic; color: var(--header); }
+ .intro { max-width: 66ch; color: var(--body); }
+ .toc { max-width: 1040px; margin: 0 auto; padding: 0 3rem 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+ .toc a { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--black); text-decoration: none; border-bottom: 2px solid var(--yellow); padding-bottom: 2px; }
+ .topic { max-width: 1040px; margin: 0 auto; padding: 3rem; border-top: 1px solid var(--rule); display: grid; grid-template-columns: 250px 1fr; gap: 3rem; }
+ .topic-label { position: sticky; top: 6rem; align-self: start; }
+ .topic-num { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; color: var(--yellow); display: block; margin-bottom: 0.8rem; }
+ h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; line-height: 1.15; color: var(--header); }
+ h2 em { font-style: italic; color: var(--sub); }
+ .topic-note { color: var(--sub); font-size: 0.86rem; margin-top: 1rem; line-height: 1.7; }
+ .item { display: grid; grid-template-columns: 120px 1fr auto; gap: 1.5rem; align-items: start; padding: 1.7rem 0; border-bottom: 1px solid var(--rule); color: inherit; text-decoration: none; }
+ .item:last-child { border-bottom: none; }
+ .item:hover .item-title { color: var(--header); }
+ .item-type { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sub); padding-top: 0.25rem; overflow-wrap: break-word; }
+ .item-title { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 400; line-height: 1.25; color: var(--black); transition: color 0.2s; }
+ .item-desc { display: block; color: var(--body); font-size: 0.88rem; line-height: 1.7; margin-top: 0.45rem; }
+ .item-tag { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--black); background: var(--yellow2); border: 1px solid var(--yellow); padding: 0.25rem 0.55rem; white-space: nowrap; margin-top: 0.25rem; }
+ footer { border-top: 1px solid var(--rule); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; }
+ .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--header); letter-spacing: 0.06em; }
+ .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.14em; color: var(--sub); }
+ @media (max-width: 768px) { header { padding: 1rem 1.5rem; } .hero,.toc,.topic { padding-left: 1.5rem; padding-right: 1.5rem; } .topic { grid-template-columns: 1fr; gap: 1rem; } .topic-label { position: static; } .item { grid-template-columns: 1fr; gap: 0.35rem; } .item-tag { width: max-content; } footer { flex-direction: column; gap: 0.6rem; text-align: center; padding: 1.5rem; } }
+</style>
+ <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"c4eb19608ce64552af7944785ceebd83"}'></script>
+</head>
+<body>
+ <header><a class="logo" href="index.html">A.M.J</a><a class="back-link" href="index.html#escritos">← Volver</a></header>
+ <main>
+  <section class="hero">
+   <p class="eyebrow">Mapa del archivo</p>
+   <h1>Archivo <em>de escritos</em></h1>
+   <p class="intro">Ensayos, estudios y notas organizados por líneas de trabajo. Cada entrada puede leerse dentro del sitio; cuando existe un documento original, queda reservado como respaldo documental.</p>
+  </section>
+  <nav class="toc"><a href="#historia">Historia</a>
+<a href="#independencia">Independencia</a>
+<a href="#mexico-moderno">México moderno</a>
+<a href="#masoneria">Masonería</a>
+<a href="#politica">Política contemporánea</a>
+<a href="#britanica">Historia británica</a>
+<a href="#medieval">Edad Media</a>
+<a href="#economia">Economía</a>
+</nav>
+  <section class="topic" id="historia">
+<div class="topic-label">
+<span class="topic-num">01</span>
+<h2>Historia<br><em>y oficio</em></h2>
+<p class="topic-note">Ensayos de reflexión sobre el sentido de la disciplina histórica, sus usos públicos y su relación con la escritura.</p>
+</div>
+<div>
+<a class="item" href="articulo-01.html">
+<span class="item-type">Ensayo breve</span>
+<span><span class="item-title">Lo que aprendí sobre la historia en una librería cualquiera</span><span class="item-desc">Una reflexión sobre la utilidad, la función social y la experiencia personal de leer historia.</span></span>
+<span class="item-tag">Ensayo</span>
+</a><a class="item" href="articulos/invencion-america-ogorman.html">
+<span class="item-type">Ensayo historiográfico</span>
+<span><span class="item-title">La invención de América</span><span class="item-desc">Una lectura de Edmundo O’Gorman y de la crítica al descubrimiento como problema histórico.</span></span>
+<span class="item-tag">Ensayo</span>
+</a><a class="item" href="articulos/autoridad-pasado-voltaire.html">
+<span class="item-type">Ensayo historiográfico</span>
+<span><span class="item-title">La autoridad del pasado y el juicio del presente</span><span class="item-desc">Régimen de historicidad, juicio ilustrado y autoridad histórica en El siglo de Luis XIV de Voltaire.</span></span>
+<span class="item-tag">Ensayo</span>
+</a>
+</div>
+</section><section class="topic" id="independencia">
+<div class="topic-label">
+<span class="topic-num">02</span>
+<h2>Independencia<br><em>y guerra</em></h2>
+<p class="topic-note">La serie militar vive en el Archivo Militar; aquí se reúnen los ensayos documentales que sostienen o amplían esa línea narrativa.</p>
+</div>
+<div>
+<a class="item" href="articulos/batalla-aculco.html">
+<span class="item-type">Ensayo documental</span>
+<span><span class="item-title">Aculco: donde se hizo y deshizo la Independencia</span><span class="item-desc">Ensayo documental adaptado para lectura web; funciona como base crítica de la crónica visual.</span></span>
+<span class="item-tag">Ensayo</span>
+</a><a class="item" href="articulos/sitio-cuautla-mito-fundacional.html">
+<span class="item-type">Ensayo documental</span>
+<span><span class="item-title">El sitio de Cuautla y la construcción de un mito fundacional</span><span class="item-desc">Ensayo documental sobre fuente militar, propaganda realista y memoria nacional.</span></span>
+<span class="item-tag">Ensayo</span>
+</a>
+</div>
+</section><section class="topic" id="mexico-moderno">
+<div class="topic-label">
+<span class="topic-num">03</span>
+<h2>México moderno<br><em>ciudadanía y nación</em></h2>
+<p class="topic-note">Textos sobre liberalismo, propiedad, ciudadanía y los límites sociales de la nación mexicana durante el siglo XIX.</p>
+</div>
+<div>
+<a class="item" href="articulos/antinomia-ciudadano-liberalismo-mexicano.html">
+<span class="item-type">Ensayo historiográfico</span>
+<span><span class="item-title">La antinomia del ciudadano</span><span class="item-desc">Indígena, propiedad y nación en el liberalismo mexicano del siglo XIX.</span></span>
+<span class="item-tag">Ensayo</span>
+</a>
+</div>
+</section><section class="topic" id="masoneria">
+<div class="topic-label">
+<span class="topic-num">04</span>
+<h2>Masonería<br><em>y política</em></h2>
+<p class="topic-note">Material para una posible serie sobre sociabilidad política, prensa y construcción del orden republicano.</p>
+</div>
+<div>
+<a class="item" href="articulos/masoneria-sociabilidad-politica.html">
+<span class="item-type">Estudio historiográfico</span>
+<span><span class="item-title">Masonería y sociabilidad política en la Ciudad de México</span><span class="item-desc">Texto base sobre el Rito Nacional Mexicano, escoceses, yorkinos y opinión pública entre 1825 y 1830.</span></span>
+<span class="item-tag">Ensayo</span>
+</a><a class="item" href="articulos/masoneria-nueva-espana-laboratorio-voz.html">
+<span class="item-type">Ensayo principal</span>
+<span><span class="item-title">El origen de la masonería en la Nueva España</span><span class="item-desc">El laboratorio de la voz: censura, Ilustración y sociabilidad secreta en el mundo virreinal.</span></span>
+<span class="item-tag">Ensayo</span>
+</a>
+</div>
+</section><section class="topic" id="politica">
+<div class="topic-label">
+<span class="topic-num">05</span>
+<h2>Política<br><em>contemporánea</em></h2>
+<p class="topic-note">Ensayos sobre discurso público, cultura política y comunicación electoral.</p>
+</div>
+<div>
+<a class="item" href="articulos/campana-epn-spots-discurso-politico.html">
+<span class="item-type">Análisis político-cultural</span>
+<span><span class="item-title">La campaña presidencial de Enrique Peña Nieto</span><span class="item-desc">Los spots de 2012 como discurso de confianza, cercanía y cambio moderado.</span></span>
+<span class="item-tag">Ensayo</span>
+</a>
+</div>
+</section><section class="topic" id="britanica">
+<div class="topic-label">
+<span class="topic-num">06</span>
+<h2>Historia<br><em>británica</em></h2>
+<p class="topic-note">Textos breves sobre ceremonial político, opinión pública y conflicto parlamentario en Inglaterra.</p>
+</div>
+<div>
+<a class="item" href="articulos/whigs-guerras-napoleonicas.html">
+<span class="item-type">Ensayo histórico</span>
+<span><span class="item-title">La guerra interna antes que la guerra externa</span><span class="item-desc">Los whigs ante la Revolución francesa, Pitt y las guerras napoleónicas.</span></span>
+<span class="item-tag">Ensayo</span>
+</a><a class="item" href="articulos/isabel-i-coronacion-funeral.html">
+<span class="item-type">Ensayo divulgativo</span>
+<span><span class="item-title">Ante la vida y la muerte de Isabel I</span><span class="item-desc">Coronación, funeral y construcción pública de la imagen de la monarca inglesa.</span></span>
+<span class="item-tag">Ensayo</span>
+</a>
+</div>
+</section><section class="topic" id="medieval">
+<div class="topic-label">
+<span class="topic-num">07</span>
+<h2>Edad Media<br><em>y derecho</em></h2>
+<p class="topic-note">Textos sobre documentos notariales, ciudad, comercio y tradición jurídica.</p>
+</div>
+<div>
+<a class="item" href="articulos/notario-languedoc-montpellier.html">
+<span class="item-type">Ensayo documental</span>
+<span><span class="item-title">Un notario de Languedoc</span><span class="item-desc">Actas notariales, deuda, comercio y justicia urbana en Montpellier durante el siglo XIV.</span></span>
+<span class="item-tag">Estudio</span>
+</a><a class="item" href="articulos/siete-partidas-ordenamiento-alcala.html">
+<span class="item-type">Ensayo</span>
+<span><span class="item-title">Las Siete Partidas y el Ordenamiento de Alcalá</span><span class="item-desc">Una lectura del derecho como instrumento de centralización política en Castilla.</span></span>
+<span class="item-tag">Estudio</span>
+</a>
+</div>
+</section><section class="topic" id="economia">
+<div class="topic-label">
+<span class="topic-num">08</span>
+<h2>Historia<br><em>económica</em></h2>
+<p class="topic-note">Ensayos de interpretación amplia sobre ideología, crisis y transformación del mundo contemporáneo.</p>
+</div>
+<div>
+<a class="item" href="articulos/siglo-xx-paradigma-economico.html">
+<span class="item-type">Ensayo</span>
+<span><span class="item-title">El siglo XX y la muerte de un paradigma económico</span><span class="item-desc">Guerra, crisis, liberalismo, comunismo y reorganización económica del mundo contemporáneo.</span></span>
+<span class="item-tag">Ensayo</span>
+</a>
+</div>
+</section>
+ </main>
+ <footer><span class="footer-name">Archivo AMJ</span><span class="footer-copy">© 2026 — Todos los derechos reservados</span></footer>
+</body>
+</html>
